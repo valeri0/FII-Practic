@@ -31,6 +31,17 @@ public class MovieDao {
 	private String director;
 	private String description;
 	private String writer;
+	private String poster;
+	
+	
+
+	public String getPoster() {
+		return poster;
+	}
+
+	public void setPoster(String poster) {
+		this.poster = poster;
+	}
 
 	// @ManyToMany
 	private List<GenreDao> genres;
