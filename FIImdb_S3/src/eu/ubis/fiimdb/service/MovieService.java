@@ -129,6 +129,8 @@ public class MovieService {
 		dao.setDirector(movie.getDirector());
 		dao.setDescription(movie.getDescription());
 		dao.setWriter(movie.getWriter());
+		dao.setPoster(movie.getPoster());
+		dao.setReleaseDate(movie.getReleaseDate());
 
 		return dao;
 	}

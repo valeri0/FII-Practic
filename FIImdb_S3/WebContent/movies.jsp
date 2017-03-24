@@ -92,13 +92,15 @@
 						<div class="col-sm-10">
 							<h3><%=movie.getName()%></h3>
 
-							Release date:
-							<%=movie.getReleaseDate()%><br /> Director:
-							<%=movie.getDirector()%><br /> Rating:
-							<%=movie.getRating()%><br /> Genre: 
-							<%=movie.getGenre()%> <br />
+							<strong>Release date</strong>:
+							<%=movie.getReleaseDate()%><br /> <strong>Director</strong>:
+							<%=movie.getDirector()%><br /> <strong>Rating</strong>:
+							<%=movie.getRating()%><br /> <strong>Genre</strong>: 
+							<%=movie.getGenre()%> <br /> <strong>Casting</strong>:
+							<%=movie.getCasting() %><br>
+							
 							<p>
-								Storyline:
+								<strong>Storyline</strong>:
 								<%=movie.getDescription()%>
 							</p>
 

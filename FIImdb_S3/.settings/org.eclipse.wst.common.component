@@ -2,15 +2,6 @@
     <wb-module deploy-name="FIImdb_S3">
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
-        <dependent-module archiveName="javax.persistence_2.1.1.v201509150925.jar" deploy-path="/WEB-INF/lib/" handle="module:/resource/javax.persistence_2.1.1.v201509150925/javax.persistence_2.1.1.v201509150925">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module archiveName="ojdbc7.jar" deploy-path="/WEB-INF/lib/" handle="module:/resource/ojdbc7/ojdbc7">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module archiveName="eclipselink.jar" deploy-path="/WEB-INF/lib/" handle="module:/resource/eclipselink/eclipselink">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
         <property name="context-root" value="FIImdb_S3"/>
         <property name="java-output-path" value="/FIImdb_S3/build/classes"/>
     </wb-module>

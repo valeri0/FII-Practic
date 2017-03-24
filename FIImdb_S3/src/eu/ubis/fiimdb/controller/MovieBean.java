@@ -29,9 +29,9 @@ public class MovieBean {
 	public void insertMovie(Movie movie, int[] movieGenreIds) {
 		movieService.insertMovie(movie, movieGenreIds);
 	}
-	/*
+	
 	public List<Genre> getGenres() {
 		return genreService.getGenres();
 	}
-	*/
+	
 }

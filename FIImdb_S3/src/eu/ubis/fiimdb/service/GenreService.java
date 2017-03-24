@@ -18,8 +18,21 @@ public class GenreService {
 		entityManager = emFactory.createEntityManager();
 	}
 
-//	public List<Genre> getGenres() {
-//
-//		
-//	}
+	public List<Genre> getGenres() {
+	
+		List<GenreDao> genreEntities=(List<GenreDao>)entityManager.createNamedQuery("getAllGenres").getResultList();
+		
+		List<Genre> genres = new ArrayList<Genre>();
+		
+		for(GenreDao genreEntity : genreEntities){
+			Genre genre = new Genre();
+			genre.setId(genreEntity.getId());
+			genre.setName(genreEntity.getName());
+			
+			genres.add(genre);
+		}
+		
+		return genres;
+	
+	}
 }

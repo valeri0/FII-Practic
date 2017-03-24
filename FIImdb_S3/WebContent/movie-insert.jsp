@@ -21,7 +21,7 @@
 		<div class="container-fluid">
 			<div class="navbar-header">
 				<div class="navbar-brand">
-					<a href="#"> Java Awesome Training Logo &copy; FII Practic 2017
+					<a href="#"> Java Awesome Training
 					</a>
 				</div>
 			</div>
@@ -43,6 +43,12 @@
 					<label for="name">Name:</label> 
 					<input type="text" name="name" class="form-control" id="name">
 				</div>
+				
+				<div class="form-group">
+					<label for="poster">Poster (URL):</label> 
+					<input type="text" name="poster" class="form-control" id="poster">
+				</div>
+				
 				
 				<div class="form-group">
 					<label for="rating">Rating:</label> 

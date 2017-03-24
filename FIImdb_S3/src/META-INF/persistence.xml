@@ -15,7 +15,6 @@
 	     	
 	     	<!-- schimbati aici datele de conectare la baza de date, daca e nevoie -->
 	     	<property name="javax.persistence.jdbc.url" value="jdbc:oracle:thin:@localhost:1521:xe"/>
-	     	
 	     	<property name="javax.persistence.jdbc.user" value="fiimdb"/>
 	     	<property name="javax.persistence.jdbc.password" value="fiimdb"/>
 	     	<property name="eclipselink.logging.level" value="FINE"/>

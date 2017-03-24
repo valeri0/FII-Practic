@@ -1,6 +1,11 @@
 package eu.ubis.fiimdb.servlets;
 
 import java.io.IOException;
+import java.sql.Date;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,9 +25,19 @@ public class MovieInsertServlet extends HttpServlet {
 		
 		// 1. creati un obiect de tip Movie
 		
+		Movie aMovie = new Movie();
+		
 		// 2. setati toate valorile obiectului 
 		// exemplu:
-		// movie.setName(req.getParameter("name"));
+		 
+		aMovie.setName(req.getParameter("name"));
+		aMovie.setPoster(req.getParameter("poster"));
+		aMovie.setRating(Double.parseDouble(req.getParameter("rating")));
+		aMovie.setLength(Integer.parseInt(req.getParameter("length")));
+		aMovie.setCasting(req.getParameter("casting"));
+		aMovie.setDirector(req.getParameter("director"));
+		aMovie.setDescription(req.getParameter("description"));
+		aMovie.setWriter(req.getParameter("writer"));
 		
 		// 3. pentru ID-urile genurilor filmului veti primi un array de String 
 		// care trebuie transformat intr-un array de int 
@@ -31,14 +46,19 @@ public class MovieInsertServlet extends HttpServlet {
 		for (int i = 0; i < genreIdStrings.length; i++) {
 			movieGenreIds[i] = Integer.parseInt(genreIdStrings[i]);
 		}
+	
 
 		// 4. creati un obiect MovieBean
+		
+		MovieBean bean = new MovieBean();
 		
 		// 5. apelati metoda insertMovie din clasa MovieBean
 		// hint: cautati-o in clasa MovieBean 
 		// primeste ca parametri obiectul Movie si lista de ID-uri ale genurilor 
 		// si apeleaza functia insertMovie din MovieService
 
+		bean.insertMovie(aMovie, movieGenreIds);
+		
 		// 6. trimiteti utilizatorul la pagina principala
 		resp.sendRedirect("movies");
 	}

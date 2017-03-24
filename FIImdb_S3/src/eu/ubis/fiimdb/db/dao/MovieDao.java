@@ -16,13 +16,15 @@ import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+@Entity
+@Table(name="movie",schema="fiimdb")
 public class MovieDao {
-	
-	// @SequenceGenerator(name="movie_seq", schema="fiimdb", sequenceName="movie_id_seq", allocationSize=1)
-	// @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "movie_seq")
+	@Id
+	@SequenceGenerator(name="movie_seq", schema="fiimdb", sequenceName="movie_id_seq", allocationSize=1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "movie_seq")
 	private int id;
 
-	//@Column(   )
+	@Column( name="release_date" )
 	private Date releaseDate;
 	private String name;
 	private double rating;
@@ -34,7 +36,6 @@ public class MovieDao {
 	private String poster;
 	
 	
-
 	public String getPoster() {
 		return poster;
 	}
@@ -43,7 +44,11 @@ public class MovieDao {
 		this.poster = poster;
 	}
 
-	// @ManyToMany
+	@ManyToMany
+	@JoinTable(name="category",
+		joinColumns=@JoinColumn(name="MOVIE_ID",referencedColumnName="ID"),
+		inverseJoinColumns=@JoinColumn(name="GENRE_ID", referencedColumnName="ID"))
+	
 	private List<GenreDao> genres;
 
 	public MovieDao() {
