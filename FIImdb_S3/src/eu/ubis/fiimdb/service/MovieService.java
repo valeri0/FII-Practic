@@ -7,15 +7,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
-
-import com.sun.org.apache.xalan.internal.xsltc.compiler.util.StringType;
-
 import eu.ubis.fiimdb.db.dao.GenreDao;
 import eu.ubis.fiimdb.db.dao.MovieDao;
-import eu.ubis.fiimdb.db.entity.GenreEntity;
-import eu.ubis.fiimdb.db.entity.MovieEntity;
-import eu.ubis.fiimdb.db.repository.MovieRepository;
-import eu.ubis.fiimdb.db.repository.RepositoryFactory;
 import eu.ubis.fiimdb.model.Movie;
 
 public class MovieService {
