@@ -13,11 +13,19 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQuery;
+import javax.persistence.NamedQueries;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="movie",schema="fiimdb")
+@NamedQueries({
+@NamedQuery(name="getAllMovies",query="SELECT m from MovieDao m join m.genres g order by m.id"),
+@NamedQuery(name="getMoviesByName",query="SELECT m from MovieDao m join m.genres g where lower(m.name) like :value order by m.id"),
+@NamedQuery(name="getMoviesByGenre",query="SELECT m from MovieDao m join m.genres g where lower(g.name) like :value order by m.id"),
+@NamedQuery(name="getMoviesByYear",query="SELECT m from MovieDao m join m.genres g where extract(year from m.releaseDate)=:value order by m.id")
+})
 public class MovieDao {
 	@Id
 	@SequenceGenerator(name="movie_seq", schema="fiimdb", sequenceName="movie_id_seq", allocationSize=1)
@@ -34,8 +42,17 @@ public class MovieDao {
 	private String description;
 	private String writer;
 	private String poster;
-	
-	
+
+	@ManyToMany
+	@JoinTable(name="category",
+		joinColumns=@JoinColumn(name="MOVIE_ID",referencedColumnName="ID"),
+		inverseJoinColumns=@JoinColumn(name="GENRE_ID", referencedColumnName="ID"))
+	private List<GenreDao> genres;
+
+	public MovieDao() {
+		this.genres = new ArrayList<>();
+	}
+		
 	public String getPoster() {
 		return poster;
 	}
@@ -44,16 +61,6 @@ public class MovieDao {
 		this.poster = poster;
 	}
 
-	@ManyToMany
-	@JoinTable(name="category",
-		joinColumns=@JoinColumn(name="MOVIE_ID",referencedColumnName="ID"),
-		inverseJoinColumns=@JoinColumn(name="GENRE_ID", referencedColumnName="ID"))
-	
-	private List<GenreDao> genres;
-
-	public MovieDao() {
-		this.genres = new ArrayList<>();
-	}
 
 	public int getId() {
 		return id;

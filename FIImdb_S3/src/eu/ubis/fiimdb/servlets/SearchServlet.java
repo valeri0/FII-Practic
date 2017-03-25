@@ -22,8 +22,6 @@ public class SearchServlet extends HttpServlet {
 		String searchedValue=request.getParameter("searchedValue");
 		String searchType=request.getParameter("searchType");
 		
-		System.out.println(searchedValue+ " / " + searchType);
-		
 		/* 
 		 * 2. create an object of type MovieBean and call search method
 		 */

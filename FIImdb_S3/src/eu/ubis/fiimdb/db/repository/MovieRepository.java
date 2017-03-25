@@ -27,53 +27,7 @@ public class MovieRepository {
 			+ "left outer join genre on category.genre_id=genre.id";
 
 
-	public List<MovieEntity> getAllMovies() {
-		Connection con = ConnectionHelper.getConnection();
-		List<MovieEntity> movies = new ArrayList<MovieEntity>();
-
-		try {
-			ResultSet resultSet = con.createStatement().executeQuery(GET_ALL_MOVIES_SQL);
-
-			while (resultSet.next()) {
-
-				MovieEntity movie = new MovieEntity();
-				
-				movie.setId(resultSet.getInt("id"));
-				movie.setReleaseDate(resultSet.getDate("release_date"));
-				movie.setName(resultSet.getString("name"));
-				movie.setRating(resultSet.getDouble("rating"));
-				movie.setLength(resultSet.getInt("length"));
-				movie.setCasting(resultSet.getString("casting"));
-				movie.setDirector(resultSet.getString("director"));
-				movie.setDescription(resultSet.getString("description"));
-				movie.setWriter(resultSet.getString("writer"));
-				
-				GenreEntity aGenre = new GenreEntity();
-				aGenre.setName(resultSet.getString("type"));
-				aGenre.setId(resultSet.getInt("genre_id"));
-				
-				movie.setPoster(resultSet.getString("poster"));
-				
-				//verificam daca avem deja un movieEntity, pentru a-i adauga un nou gen
-				
-				if(movies.contains(movie)){
-					movies.get(movies.indexOf(movie)).getGenres().add(aGenre);
-					continue;
-				}
-				else
-				{
-					movie.getGenres().add(aGenre);
-					movies.add(movie);
-				}
-				
-			
-
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return movies;
-	}
+	
 	public List<MovieEntity> search(String criteria, String value){
 		Connection con = ConnectionHelper.getConnection();
 		List<MovieEntity> movies = new ArrayList<MovieEntity>();
