@@ -13,6 +13,7 @@ public class MovieBean {
 	private MovieService movieService = ServiceFactory.getMovieService();
 	private GenreService genreService = ServiceFactory.getGenreService();
 	private List<Movie> movies = new ArrayList<Movie>();
+	private Movie movieDetail = new Movie();
 
 	public void getAllMovies() {
 		movies = movieService.getMovies();		
@@ -20,6 +21,10 @@ public class MovieBean {
 	
 	public void search(String criteria, String value) {
 		movies = movieService.search(criteria, value);
+	}
+	
+	public Movie getMovieDetail(){
+		return this.movieDetail;
 	}
 
 	public List<Movie> getMovies() {
@@ -32,6 +37,13 @@ public class MovieBean {
 	
 	public List<Genre> getGenres() {
 		return genreService.getGenres();
+	}
+	
+	public void setMovieDetail(int id){
+		for(Movie aMovie : movies){
+			if(aMovie.getId()==id)
+				this.movieDetail=aMovie;
+		}
 	}
 	
 }

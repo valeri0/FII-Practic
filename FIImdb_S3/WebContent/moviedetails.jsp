@@ -5,8 +5,10 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+	<jsp:useBean id="movieBean" class="eu.ubis.fiimdb.controller.MovieBean" scope="request"></jsp:useBean>
+
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>FIIMDb</title>
+<title><%=movieBean.getMovieDetail().getName() %></title>
 <link rel="stylesheet" href="css/bootstrap.min.css">
 <link rel="stylesheet" href="css/site.css">
 <link rel="icon" type="image/png" href="https://static.tildacdn.com/tild6562-3030-4464-a364-633961326435/2.png">
@@ -15,7 +17,6 @@
 <script src="js/bootstrap.min.js"></script>
 </head>
 <body>
-	<jsp:useBean id="movieBean" class="eu.ubis.fiimdb.controller.MovieBean" scope="request"></jsp:useBean>
 
 	<nav class="navbar navbar-default">
 	<div class="container-fluid">
@@ -78,42 +79,10 @@
 			</form>
 		</fieldset>
 		<div class="movie-container">
-			<ul class="list-group">
-				<%
-					
-					for (Movie movie : movieBean.getMovies()) {
-				%>
-
-				<li class="list-group-item">
-					<div class="row">
-						<a href="DetailsServlet?id=<%= movie.getId()%>"><img src="<%=movie.getPoster()%>" alt="Poster unavailable"
-							class="img-thumbnail rounded float-left col-sm-2" />
-
-						<div class="col-sm-10">
-							<h3><a href="DetailsServlet?id=<%= movie.getId()%>"><%=movie.getName()%></a></h3>
-
-							<strong>Release date</strong>:
-							<%=movie.getReleaseDate()%><br /> <strong>Director</strong>:
-							<%=movie.getDirector()%><br /> <strong>Rating</strong>:
-							<%=movie.getRating()%><br /> <strong>Genre</strong>: 
-							<%=movie.getGenre()%> <br /> <strong>Casting</strong>:
-							<%=movie.getCasting() %><br>
-							
-							<p>
-								<strong>Storyline</strong>:
-								<%=movie.getDescription()%>
-							</p>
-
-						</div>
-
-					</div>
-				</li>
-
-				<%
-					}
-				%>
-
-			</ul>
+		
+		<h1><%=movieBean.getMovieDetail().getName() %> </h1>
+		<img src=<%=movieBean.getMovieDetail().getPoster() %> >
+		
 		</div>
 	</div>
 </body>

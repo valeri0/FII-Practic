@@ -30,11 +30,6 @@ public class SearchServlet extends HttpServlet {
 		
 		bean.search(searchType, searchedValue);
 		
-		for(Movie aMovie : bean.getMovies()){
-			System.out.println(aMovie.getName());
-		}
-		
-		
 		/*
 		 * 3. set the bean as an attribute to the request 
 		 * make sure that it is the name from movies.jsp (see tag <jsp:useBean>)
