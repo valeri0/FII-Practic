@@ -28,7 +28,7 @@ public class SearchServlet extends HttpServlet {
 		
 		MovieBean bean = new MovieBean();
 		
-		bean.search(searchType, searchedValue);
+		bean.search(searchType, searchedValue.toLowerCase());
 		
 		/*
 		 * 3. set the bean as an attribute to the request 

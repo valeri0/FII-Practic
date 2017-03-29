@@ -2,7 +2,7 @@
     <wb-module deploy-name="FIImdb_S3">
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
-        <property name="context-root" value="FIImdb_S3"/>
         <property name="java-output-path" value="/FIImdb_S3/build/classes"/>
+        <property name="context-root" value="FIImdb_S3"/>
     </wb-module>
 </project-modules>

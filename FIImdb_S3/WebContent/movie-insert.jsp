@@ -25,6 +25,7 @@
 					</a>
 				</div>
 			</div>
+			
 			<div class="nav navbar-nav navbar-right">
 						<div class="dropdown">
 							<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"><%=request.getRemoteUser() %>
@@ -37,12 +38,14 @@
 								</li>
 							</ul>
 						</div>
-					</div>
+			</div>
+			
 			<div class="collapse navbar-collapse"
 				id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav">
 					<li><a href="movies">Home</a></li>
 					<li class="active"><a href="movie-insert.jsp">Insert movie</a></li>
+					<li><a href="movie-delete.jsp">Delete movie</a></li>
 			</div>
 	</nav>
 

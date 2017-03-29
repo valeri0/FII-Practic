@@ -29,8 +29,9 @@
 		<div class="collapse navbar-collapse"
 			id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
-				<li class="active"><a href="movies">Home</a></li>
+				<li><a href="movies">Home</a></li>
 				<li><a href="movie-insert.jsp">Insert movie</a></li>
+				<li><a href="movie-delete.jsp">Delete movie</a></li>
 		</div>
 	</nav>
 
@@ -75,15 +76,66 @@
 							<input type="radio" class="form-check-input" name="searchType" value="year" <%=request.getAttribute("searchType") != null && request.getAttribute("searchType").equals("year") == true ? "checked" : ""%>/> By Release Year
 						</label>
 					</div>
+					
+					<div class="col-sm-4">
+						<label class="radio-inline"> 
+							<input type="radio" class="form-check-input" name="searchType" value="director" <%=request.getAttribute("searchType") != null && request.getAttribute("searchType").equals("director") == true ? "checked" : ""%>/> By Director
+						</label>
+					</div>
+					
+					<div class="col-sm-4">
+						<label class="radio-inline"> 
+							<input type="radio" class="form-check-input" name="searchType" value="writer" <%=request.getAttribute("searchType") != null && request.getAttribute("searchType").equals("writer") == true ? "checked" : ""%>/> By Writer
+						</label>
+					</div>
+					
+					<div class="col-sm-4">
+						<label class="radio-inline"> 
+							<input type="radio" class="form-check-input" name="searchType" value="casting" <%=request.getAttribute("searchType") != null && request.getAttribute("searchType").equals("casting") == true ? "checked" : ""%>/> By Actor
+						</label>
+					</div>
+					
 				</div>
 			</form>
 		</fieldset>
+		
+		
+		
 		<div class="movie-container">
+			<ul class="list-group">
+
+				<li class="list-group-item">
+					<div class="row">
+						<img src="<%=movieBean.getMovieDetail().getPoster()%>" alt="Poster unavailable"
+							class="img-thumbnail rounded float-left col-sm-2" />
+
+						<div class="col-sm-10">
+							<h3><%=movieBean.getMovieDetail().getName()%></a></h3>
+							
+							<strong>Rating:</strong>
+							<%= movieBean.getMovieDetail().getRating() %> <br>
+							<strong>Director:</strong>
+							<%= movieBean.getMovieDetail().getDirector() %> <br>
+							<strong>Writer:</strong>
+							<%= movieBean.getMovieDetail().getWriter() %> <br>
+							<strong>Description:</strong>
+							<%= movieBean.getMovieDetail().getDescription() %> <br>
 		
-		<h1><%=movieBean.getMovieDetail().getName() %> </h1>
-		<img src=<%=movieBean.getMovieDetail().getPoster() %> >
+							<strong>Genres:</strong>		
+							<%= movieBean.getMovieDetail().getGenre() %> <br>
 		
+							<strong>Casting:</strong>
+							<%=movieBean.getMovieDetail().getCasting() %><br>
+
+						</div>
+
+					</div>
+				</li>
+
+			</ul>
 		</div>
-	</div>
+		
+		
+	
 </body>
 </html>

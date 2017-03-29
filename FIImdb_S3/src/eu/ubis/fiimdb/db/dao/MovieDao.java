@@ -24,7 +24,10 @@ import javax.persistence.Table;
 @NamedQuery(name="getAllMovies",query="SELECT m from MovieDao m join m.genres g order by m.id"),
 @NamedQuery(name="getMoviesByName",query="SELECT m from MovieDao m join m.genres g where lower(m.name) like :value order by m.id"),
 @NamedQuery(name="getMoviesByGenre",query="SELECT m from MovieDao m join m.genres g where lower(g.name) like :value order by m.id"),
-@NamedQuery(name="getMoviesByYear",query="SELECT m from MovieDao m join m.genres g where extract(year from m.releaseDate)=:value order by m.id")
+@NamedQuery(name="getMoviesByYear",query="SELECT m from MovieDao m join m.genres g where extract(year from m.releaseDate)=:value order by m.id"),
+@NamedQuery(name="getMoviesByDirector",query="SELECT m from MovieDao m join m.genres g where lower(m.director) like :value order by m.id"),
+@NamedQuery(name="getMoviesByWriter",query="SELECT m from MovieDao m join m.genres g where lower(m.writer) like :value order by m.id"),
+@NamedQuery(name="getMoviesByActor",query="SELECT m from MovieDao m join m.genres g where lower(m.casting) like :value order by m.id ")
 })
 public class MovieDao {
 	@Id

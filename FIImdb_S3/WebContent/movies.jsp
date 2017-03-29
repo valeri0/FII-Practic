@@ -30,6 +30,7 @@
 			<ul class="nav navbar-nav">
 				<li class="active"><a href="movies">Home</a></li>
 				<li><a href="movie-insert.jsp">Insert movie</a></li>
+				<li><a href="MovieList">Delete movie</a></li>
 		</div>
 	</nav>
 
@@ -74,6 +75,24 @@
 							<input type="radio" class="form-check-input" name="searchType" value="year" <%=request.getAttribute("searchType") != null && request.getAttribute("searchType").equals("year") == true ? "checked" : ""%>/> By Release Year
 						</label>
 					</div>
+					
+					<div class="col-sm-4">
+						<label class="radio-inline"> 
+							<input type="radio" class="form-check-input" name="searchType" value="director" <%=request.getAttribute("searchType") != null && request.getAttribute("searchType").equals("director") == true ? "checked" : ""%>/> By Director
+						</label>
+					</div>
+					
+					<div class="col-sm-4">
+						<label class="radio-inline"> 
+							<input type="radio" class="form-check-input" name="searchType" value="writer" <%=request.getAttribute("searchType") != null && request.getAttribute("searchType").equals("writer") == true ? "checked" : ""%>/> By Writer
+						</label>
+					</div>
+					
+					<div class="col-sm-4">
+						<label class="radio-inline"> 
+							<input type="radio" class="form-check-input" name="searchType" value="casting" <%=request.getAttribute("searchType") != null && request.getAttribute("searchType").equals("casting") == true ? "checked" : ""%>/> By Actor
+						</label>
+					</div>
 				</div>
 			</form>
 		</fieldset>
@@ -94,7 +113,8 @@
 
 							<strong>Release date</strong>:
 							<%=movie.getReleaseDate()%><br /> <strong>Director</strong>:
-							<%=movie.getDirector()%><br /> <strong>Rating</strong>:
+							<%=movie.getDirector()%><br /> <strong>Writer</strong>:
+							<%=movie.getWriter() %><br /> <strong>Rating</strong>:
 							<%=movie.getRating()%><br /> <strong>Genre</strong>: 
 							<%=movie.getGenre()%> <br /> <strong>Casting</strong>:
 							<%=movie.getCasting() %><br>

@@ -46,4 +46,11 @@ public class MovieBean {
 		}
 	}
 	
+	
+	
+	public void deleteMovie(Movie movie){
+		movieService.deleteMovie(movieService.mapMovieModelToDao(movie));
+	}
+	
+	
 }

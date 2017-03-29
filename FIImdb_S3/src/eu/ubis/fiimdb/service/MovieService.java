@@ -26,6 +26,7 @@ public class MovieService {
 	// GETMOVIES folosind JPA
 	public List<Movie> getMovies() {
 		List<MovieDao> movieEntities = (List<MovieDao>)entityManager.createNamedQuery("getAllMovies").getResultList();
+		System.out.println(movieEntities);
 		
 		List<Movie> movies = new ArrayList<Movie>();
 		
@@ -100,6 +101,21 @@ public class MovieService {
 			case "year":
 				movieEntities = (List<MovieDao>)entityManager.createNamedQuery("getMoviesByYear").setParameter("value", value).getResultList();
 				break;
+			
+			case "director":
+				movieEntities = (List<MovieDao>)entityManager.createNamedQuery("getMoviesByDirector").setParameter("value", "%" + value + "%").getResultList();
+
+				break;
+			
+			case "writer":
+				movieEntities = (List<MovieDao>)entityManager.createNamedQuery("getMoviesByWriter").setParameter("value", "%" + value + "%").getResultList();
+
+				break;
+			
+			case "casting":
+				movieEntities = (List<MovieDao>)entityManager.createNamedQuery("getMoviesByActor").setParameter("value", "%" + value+ "%").getResultList();
+
+				break;
 		
 		}
 		
@@ -125,6 +141,7 @@ public class MovieService {
 	// INSERT folosind JPA
 	// obiectele Movie si lista de genuri -> informatiile introduse in .jsp 
 	// ne cream un obiect de tip MovieDao si ii spunem entityManager-ului sa il introduca in baza de date (entityManager.persist())
+	
 	public void insertMovie(Movie movie, int[] movieGenreIds) {
 		MovieDao movieDao = mapMovieModelToDao(movie);
 		
@@ -144,9 +161,21 @@ public class MovieService {
 		transaction.commit();
 	}
 	
+	public void deleteMovie(MovieDao movie){
+		
+		MovieDao movieToBeDeleted = entityManager.find(MovieDao.class, movie.getId());
+		
+		entityManager.getTransaction().begin();
+		
+		entityManager.remove(movieToBeDeleted);
+		
+		entityManager.getTransaction().commit();
+		
+	}
+	
 	
 
-	private MovieDao mapMovieModelToDao(Movie movie) {
+	public MovieDao mapMovieModelToDao(Movie movie) {
 		MovieDao dao = new MovieDao();
 
 		dao.setId(movie.getId());
