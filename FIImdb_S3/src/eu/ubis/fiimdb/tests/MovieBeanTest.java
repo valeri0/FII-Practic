@@ -26,7 +26,7 @@ public class MovieBeanTest {
 		
 		List<Movie> movies = bean.getMovies();
 		
-		int pittMovies=3;
+		int pittMovies=4;
 		
 		for(Movie movie : movies){
 			if(movie.getCasting().toLowerCase().contains(value)){

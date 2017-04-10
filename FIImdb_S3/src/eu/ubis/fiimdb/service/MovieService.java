@@ -145,6 +145,7 @@ public class MovieService {
 		
 		}
 		
+		//eliminam filmele duplicate
 		for(int i=0;i<movieEntities.size();i++){
 			if(i==0){
 				movies.add(mapMovieDaoToMovie(movieEntities.get(i)));

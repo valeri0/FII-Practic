@@ -67,7 +67,7 @@
 						
 
 						<div class="col-sm-10">
-							<h3><%=directorBean.getDirectorDetails().getLastName() %> <%=directorBean.getDirectorDetails().getFirstName() %></a></h3>
+							<h3><%=directorBean.getDirectorDetails().getLastName() %> <%=directorBean.getDirectorDetails().getFirstName() %></h3>
 							
 							<strong>Date of birth:</strong>
 							<%= directorBean.getDirectorDetails().getDateOfBirth() %> <br>
