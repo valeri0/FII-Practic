@@ -7,19 +7,24 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+
+import eu.ubis.fiimdb.db.dao.DirectorDao;
 import eu.ubis.fiimdb.db.dao.GenreDao;
 import eu.ubis.fiimdb.db.dao.MovieDao;
+import eu.ubis.fiimdb.model.Director;
 import eu.ubis.fiimdb.model.Movie;
 
 public class MovieService {
 	// declaram un entityManager, care va face tranzactiile (insert) catre baza de date
 	private EntityManager entityManager;
+	private DirectorService directorService;
 
 	
 	// in constructor ne instantiem un entityManager
 	MovieService() {
 		EntityManagerFactory emFactory = Persistence.createEntityManagerFactory("fiimdb");
 		entityManager = emFactory.createEntityManager();
+		directorService=ServiceFactory.getDirectorService();
 	}
 
 	
@@ -48,12 +53,12 @@ public class MovieService {
 		return movies;
 	}
 	
+	
 	public Movie mapMovieDaoToMovie(MovieDao movie){
 		Movie newMovie = new Movie();
 		newMovie.setId(movie.getId());
 		newMovie.setCasting(movie.getCasting());
 		newMovie.setDescription(movie.getDescription());
-		newMovie.setDirector(movie.getDirector());
 		newMovie.setName(movie.getName());
 		newMovie.setPoster(movie.getPoster());
 		newMovie.setLength(movie.getLength());
@@ -71,13 +76,34 @@ public class MovieService {
 				
 			
 		}
+		List<Director> directors = new ArrayList<>();
+		for(DirectorDao directorEntity : movie.getDirectors()){
+			directors.add(directorService.mapDirectorDaoToModel(directorEntity));
+		}
+		
+		newMovie.setDirectors(directors);
+		
+		
 		newMovie.setGenre(genre);
 		
 		return newMovie;
 		
 	}
 	
-	// SEARCH folosing JPA
+	
+	public List<Movie> getMoviesForDirector(int directorId){
+		List<Movie> movies = new ArrayList<>();
+		
+		List<MovieDao> entities = new ArrayList<>();
+		entities = (List<MovieDao>)entityManager.createNamedQuery("getMoviesByDirectorID").setParameter("value", directorId).getResultList();
+		
+		for(MovieDao entity : entities){
+			movies.add(mapMovieDaoToMovie(entity));
+		}
+		
+		return movies;
+		
+	}
 
 	
 	public List<Movie> search(String criteria, String value){
@@ -137,22 +163,33 @@ public class MovieService {
 		
 	}
 
+	public Movie getSingleMovie(int id){
+		
+		Movie movie = new Movie();
+		
+		movie = mapMovieDaoToMovie(entityManager.find(MovieDao.class, id));
+		
+		return movie;
+	}
 	
-	// INSERT folosind JPA
-	// obiectele Movie si lista de genuri -> informatiile introduse in .jsp 
-	// ne cream un obiect de tip MovieDao si ii spunem entityManager-ului sa il introduca in baza de date (entityManager.persist())
-	
-	public void insertMovie(Movie movie, int[] movieGenreIds) {
+	public void insertMovie(Movie movie, int[] movieGenreIds,int[] movieDirectorIds) {
 		MovieDao movieDao = mapMovieModelToDao(movie);
 		
 		List<GenreDao> movieGenres = new ArrayList<>();
 		for (int movieGenreId: movieGenreIds) {
-			GenreDao movieGenre = new GenreDao();
-			movieGenre.setId(movieGenreId);
+			GenreDao movieGenre = entityManager.find(GenreDao.class, movieGenreId);
 			movieGenres.add(movieGenre);
 		}
 		
 		movieDao.setGenres(movieGenres);
+		
+		List<DirectorDao> movieDirectors = new ArrayList<>();
+		for(int movieDirectorID : movieDirectorIds){
+			DirectorDao director = entityManager.find(DirectorDao.class, movieDirectorID);
+			movieDirectors.add(director);
+		}
+		
+		movieDao.setDirectors(movieDirectors);
 		
 		EntityTransaction transaction = entityManager.getTransaction();
 		transaction.begin();
@@ -161,9 +198,9 @@ public class MovieService {
 		transaction.commit();
 	}
 	
-	public void deleteMovie(MovieDao movie){
+	public void deleteMovie(int id){
 		
-		MovieDao movieToBeDeleted = entityManager.find(MovieDao.class, movie.getId());
+		MovieDao movieToBeDeleted = entityManager.find(MovieDao.class, id);
 		
 		entityManager.getTransaction().begin();
 		
@@ -173,7 +210,44 @@ public class MovieService {
 		
 	}
 	
+	public void updateMovie(Movie movie,int[] movieGenreIds,int[] directorIds){
+		
+		entityManager.getTransaction().begin();
 	
+		MovieDao movieDao = entityManager.find(MovieDao.class, movie.getId());
+		
+		movieDao.setCasting(movie.getCasting());
+		movieDao.setDescription(movie.getDescription());
+		movieDao.setName(movie.getName());
+		movieDao.setPoster(movie.getPoster());
+		movieDao.setLength(movie.getLength());
+		movieDao.setRating(movie.getRating());
+		movieDao.setWriter(movie.getWriter());
+		//movieDao.setReleaseDate(movie.getReleaseDate());
+		
+		
+		List<GenreDao> movieGenres = new ArrayList<>();
+		
+		for (int movieGenreId: movieGenreIds) {
+			GenreDao movieGenre = entityManager.find(GenreDao.class, movieGenreId);
+			movieGenres.add(movieGenre);
+		}
+		
+		movieDao.setGenres(movieGenres);
+		
+		List<DirectorDao> directors = new ArrayList<>();
+		
+		for(int directorId : directorIds){
+			DirectorDao director = entityManager.find(DirectorDao.class,directorId);
+			directors.add(director);
+		}
+		
+		movieDao.setDirectors(directors);
+		
+		entityManager.getTransaction().commit();
+		
+		
+	}
 
 	public MovieDao mapMovieModelToDao(Movie movie) {
 		MovieDao dao = new MovieDao();
@@ -184,7 +258,6 @@ public class MovieService {
 		dao.setRating(movie.getRating());
 		dao.setLength(movie.getLength());
 		dao.setCasting(movie.getCasting());
-		dao.setDirector(movie.getDirector());
 		dao.setDescription(movie.getDescription());
 		dao.setWriter(movie.getWriter());
 		dao.setPoster(movie.getPoster());

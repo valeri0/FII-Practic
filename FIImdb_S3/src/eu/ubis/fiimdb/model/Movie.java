@@ -1,6 +1,7 @@
 package eu.ubis.fiimdb.model;
 
 import java.util.Date;
+import java.util.List;
 
 public class Movie {
 	private int id;
@@ -9,14 +10,22 @@ public class Movie {
 	private double rating;
 	private int length;
 	private String casting;
-	private String director;
 	private String description;
+	private List<Director> directors;
 	private String writer;
 	private String genre;
 	private String poster;
 	
 	
 	
+	public List<Director> getDirectors() {
+		return directors;
+	}
+
+	public void setDirectors(List<Director> directors) {
+		this.directors = directors;
+	}
+
 	public String getPoster() {
 		return poster;
 	}
@@ -73,13 +82,6 @@ public class Movie {
 		this.casting = casting;
 	}
 
-	public String getDirector() {
-		return director;
-	}
-
-	public void setDirector(String director) {
-		this.director = director;
-	}
 
 	public String getDescription() {
 		return description;

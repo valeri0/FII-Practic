@@ -10,6 +10,7 @@ import eu.ubis.fiimdb.service.MovieService;
 import eu.ubis.fiimdb.service.ServiceFactory;
 
 public class MovieBean {
+	
 	private MovieService movieService = ServiceFactory.getMovieService();
 	private GenreService genreService = ServiceFactory.getGenreService();
 	private List<Movie> movies = new ArrayList<Movie>();
@@ -31,8 +32,8 @@ public class MovieBean {
 		return movies;
 	}
 	
-	public void insertMovie(Movie movie, int[] movieGenreIds) {
-		movieService.insertMovie(movie, movieGenreIds);
+	public void insertMovie(Movie movie, int[] movieGenreIds, int[] movieDirectorIds) {
+		movieService.insertMovie(movie, movieGenreIds, movieDirectorIds);
 	}
 	
 	public List<Genre> getGenres() {
@@ -40,17 +41,19 @@ public class MovieBean {
 	}
 	
 	public void setMovieDetail(int id){
-		for(Movie aMovie : movies){
-			if(aMovie.getId()==id)
-				this.movieDetail=aMovie;
-		}
+		this.movieDetail=movieService.getSingleMovie(id);
 	}
 	
 	
 	
-	public void deleteMovie(Movie movie){
-		movieService.deleteMovie(movieService.mapMovieModelToDao(movie));
+	public void deleteMovie(int id){
+		movieService.deleteMovie(id);
 	}
+	
+	public void updateMovie(Movie movie, int[] movieGenreIds,int[] directorIds){
+		movieService.updateMovie(movie, movieGenreIds,directorIds);
+	}
+	
 	
 	
 }

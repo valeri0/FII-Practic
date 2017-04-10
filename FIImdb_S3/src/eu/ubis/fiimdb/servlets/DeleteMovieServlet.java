@@ -14,13 +14,13 @@ import eu.ubis.fiimdb.model.Movie;
  * Servlet implementation class DeleteMovie
  */
 @WebServlet("/DeleteMovie")
-public class DeleteMovie extends HttpServlet {
+public class DeleteMovieServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DeleteMovie() {
+    public DeleteMovieServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,15 +34,10 @@ public class DeleteMovie extends HttpServlet {
 		
 		MovieBean bean = new MovieBean();
 		
-		bean.getAllMovies();
-		
-		for(Movie aMovie : bean.getMovies()){
-			if(aMovie.getId()==id){
-				bean.deleteMovie(aMovie);
-			}
-		}
+		bean.deleteMovie(id);
 		
 		response.sendRedirect("movies");
+	
 	}
 
 	/**
@@ -50,7 +45,7 @@ public class DeleteMovie extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+
 	}
 
 }

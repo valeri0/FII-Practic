@@ -34,8 +34,6 @@ public class DetailsServlet extends HttpServlet {
 		
 		MovieBean bean = new MovieBean();
 		
-		bean.getAllMovies();
-		
 		bean.setMovieDetail(idParameter);
 		
 		request.setAttribute("movieBean", bean);

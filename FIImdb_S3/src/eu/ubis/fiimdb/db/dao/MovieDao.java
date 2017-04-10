@@ -21,14 +21,16 @@ import javax.persistence.Table;
 @Entity
 @Table(name="movie",schema="fiimdb")
 @NamedQueries({
-@NamedQuery(name="getAllMovies",query="SELECT m from MovieDao m join m.genres g order by m.id"),
-@NamedQuery(name="getMoviesByName",query="SELECT m from MovieDao m join m.genres g where lower(m.name) like :value order by m.id"),
-@NamedQuery(name="getMoviesByGenre",query="SELECT m from MovieDao m join m.genres g where lower(g.name) like :value order by m.id"),
-@NamedQuery(name="getMoviesByYear",query="SELECT m from MovieDao m join m.genres g where extract(year from m.releaseDate)=:value order by m.id"),
-@NamedQuery(name="getMoviesByDirector",query="SELECT m from MovieDao m join m.genres g where lower(m.director) like :value order by m.id"),
-@NamedQuery(name="getMoviesByWriter",query="SELECT m from MovieDao m join m.genres g where lower(m.writer) like :value order by m.id"),
-@NamedQuery(name="getMoviesByActor",query="SELECT m from MovieDao m join m.genres g where lower(m.casting) like :value order by m.id ")
+@NamedQuery(name="getAllMovies",query="SELECT m from MovieDao m join m.directors d join m.genres g order by m.id"),
+@NamedQuery(name="getMoviesByName",query="SELECT m from MovieDao m join m.directors d join m.genres g where lower(m.name) like :value order by m.id"),
+@NamedQuery(name="getMoviesByGenre",query="SELECT m from MovieDao m join m.directors d join m.genres g where lower(g.name) like :value order by m.id"),
+@NamedQuery(name="getMoviesByYear",query="SELECT m from MovieDao m join m.directors d join m.genres g where extract(year from m.releaseDate)=:value order by m.id"),
+@NamedQuery(name="getMoviesByDirector",query="SELECT m from MovieDao m join m.directors d join m.genres g where lower(d.firstName) like :value or lower(d.lastName) like :value order by m.id"),
+@NamedQuery(name="getMoviesByWriter",query="SELECT m from MovieDao m join m.directors d join m.genres g where lower(m.writer) like :value order by m.id"),
+@NamedQuery(name="getMoviesByActor",query="SELECT m from MovieDao m join m.directors d join m.genres g where lower(m.casting) like :value order by m.id "),
+@NamedQuery(name="getMoviesByDirectorID", query="SELECT m from MovieDao m join m.directors d where d.id=:value ")
 })
+
 public class MovieDao {
 	@Id
 	@SequenceGenerator(name="movie_seq", schema="fiimdb", sequenceName="movie_id_seq", allocationSize=1)
@@ -41,7 +43,6 @@ public class MovieDao {
 	private double rating;
 	private int length;
 	private String casting;
-	private String director;
 	private String description;
 	private String writer;
 	private String poster;
@@ -51,11 +52,34 @@ public class MovieDao {
 		joinColumns=@JoinColumn(name="MOVIE_ID",referencedColumnName="ID"),
 		inverseJoinColumns=@JoinColumn(name="GENRE_ID", referencedColumnName="ID"))
 	private List<GenreDao> genres;
+	
+	
+	@ManyToMany
+	@JoinTable(name="directed",
+		joinColumns=@JoinColumn(name="MOVIE_ID",referencedColumnName="ID"),
+		inverseJoinColumns=@JoinColumn(name="DIRECTOR_ID",referencedColumnName="ID"))
+	private List<DirectorDao> directors;
+	
+	
 
 	public MovieDao() {
 		this.genres = new ArrayList<>();
 	}
+	
+	
 		
+	public List<DirectorDao> getDirectors() {
+		return directors;
+	}
+
+
+
+	public void setDirectors(List<DirectorDao> directors) {
+		this.directors = directors;
+	}
+
+
+
 	public String getPoster() {
 		return poster;
 	}
@@ -113,13 +137,6 @@ public class MovieDao {
 		this.casting = casting;
 	}
 
-	public String getDirector() {
-		return director;
-	}
-
-	public void setDirector(String director) {
-		this.director = director;
-	}
 
 	public String getDescription() {
 		return description;

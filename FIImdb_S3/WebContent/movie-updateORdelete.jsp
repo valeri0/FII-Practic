@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>FIIMDb - delete movie</title>
+<title>FIIMDb - Update Or Delete movie</title>
 <link rel="stylesheet" href="css/bootstrap.min.css">
 <link rel="stylesheet" href="css/site.css">
 <link rel="icon" type="image/png" href="https://static.tildacdn.com/tild6562-3030-4464-a364-633961326435/2.png">
@@ -43,39 +43,47 @@
 				<ul class="nav navbar-nav">
 					<li><a href="movies">Home</a></li>
 					<li><a href="movie-insert.jsp">Insert movie</a></li>
-					<li class="active"><a href="movie-delete.jsp">Delete movie</a></li>
+					<li class="active"><a href="UpdateOrDelete">Update/Delete</a></li>
 			</div>
 	</nav>
 	<div class="container">
-	<h3>Delete a movie</h3>
+	<legend>Update Or Delete a Movie</legend>
 	<div class="movie-container">
-			<ul class="list-group">
-			<%
-					
-					for (Movie movie : movieBean.getMovies()) {
-			%>
-
-				<li class="list-group-item" >
-					<div class="row">
-						
-
-						<div class="col-sm-10">
-							
-							<%=movie.getName() %>
-						<a href="DeleteMovie?id=<%=movie.getId()%>">	
-						<img style="float:right; margin-right:-160px;" src="https://cdn4.iconfinder.com/data/icons/colicon/24/close_delete-128.png" height="20">
-						</a>
-						</div>
-
-					</div>
-				</li>
-				
-				<%
-					}
-				%>
+			<table class="table">
 			
-
-			</ul>
+			<thead>
+			<th>ID</th>
+			<th>Name</th>
+			<th>Update</th>
+			<th>Delete</th>
+			</thead>
+			
+			<tbody>
+			
+			<%for(Movie aMovie : movieBean.getMovies()){ %>
+			<tr>
+			<th scope="row"><%=aMovie.getId() %>
+			
+			<td><%=aMovie.getName() %></td>
+			
+			<td> 		
+			<a href="UpdateMovie?id=<%=aMovie.getId()%>">
+			<img src="https://cdn1.iconfinder.com/data/icons/client-management/512/change-256.png" height="20"> 
+			</a>				
+			</td>
+						
+			<td> 
+			<a href="DeleteMovie?id=<%=aMovie.getId()%>"> 
+			<img src="http://www.freeiconspng.com/uploads/remove-icon-png-24.png" height="20">
+			</a>
+			</td>
+			
+			</tr>
+			
+			<%} %>
+			</tbody>
+			
+			</table>
 		</div>
 	</div>
 	

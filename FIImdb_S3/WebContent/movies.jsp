@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ page import="eu.ubis.fiimdb.model.Movie"%>
+<%@ page import="eu.ubis.fiimdb.model.Director" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -25,12 +26,27 @@
 				</a>
 			</div>
 		</div>
+		
+		<div class="nav navbar-nav navbar-right">
+						<div class="dropdown">
+							<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"><%=request.getRemoteUser() %>
+  							<span class="caret"></span></button>
+							<ul class="dropdown-menu" >
+								<li>
+									<form action="<%=response.encodeURL("UserServlet?action=logout") %>"  method="post">
+		                    				<button type="submit" class="btn btn-default center-block">Logout</button>
+		                				</form>	
+								</li>
+							</ul>
+						</div>
+			</div>
+		
 		<div class="collapse navbar-collapse"
 			id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
 				<li class="active"><a href="movies">Home</a></li>
 				<li><a href="movie-insert.jsp">Insert movie</a></li>
-				<li><a href="MovieList">Delete movie</a></li>
+				<li><a href="UpdateOrDelete">Update/Delete</a></li>
 		</div>
 	</nav>
 
@@ -112,8 +128,17 @@
 							<h3><a href="DetailsServlet?id=<%= movie.getId()%>"><%=movie.getName()%></a></h3>
 
 							<strong>Release date</strong>:
-							<%=movie.getReleaseDate()%><br /> <strong>Director</strong>:
-							<%=movie.getDirector()%><br /> <strong>Writer</strong>:
+							<%=movie.getReleaseDate()%><br />
+							<strong>Director(s):</strong>
+							
+							<%for(Director director : movie.getDirectors()){ %>
+							<a href="DirectorDetail?id=<%=director.getId()%>"> 
+							<%=director.getLastName() %> <%=director.getFirstName() %>
+							</a>
+							<%} %>   
+							
+							<br />
+							<strong>Writer</strong>:
 							<%=movie.getWriter() %><br /> <strong>Rating</strong>:
 							<%=movie.getRating()%><br /> <strong>Genre</strong>: 
 							<%=movie.getGenre()%> <br /> <strong>Casting</strong>:
