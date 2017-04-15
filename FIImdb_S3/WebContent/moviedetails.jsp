@@ -46,8 +46,10 @@
 			id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
 				<li><a href="movies">Home</a></li>
+				<%if ( request.isUserInRole("admin")){ %>
 				<li><a href="movie-insert.jsp">Insert movie</a></li>
 				<li><a href="UpdateOrDelete">Update/Delete</a></li>
+				<% } %>
 		</div>
 	</nav>
 

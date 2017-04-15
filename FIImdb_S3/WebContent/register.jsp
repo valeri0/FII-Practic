@@ -20,34 +20,31 @@
 		    	<div class="col-md-4 col-md-offset-4">
 		    		<div class="panel panel-default">
 					  	<div class="panel-heading">
-					    	<h3 class="panel-title">Please sign in</h3>
+					    	<h3 class="panel-title">Register</h3>
 					 	</div>
 					  	<div class="panel-body">
-					    	<form accept-charset="UTF-8" action="j_security_check" method="POST">
+					    	<form accept-charset="UTF-8" action="Register" method="POST">
 		                    <fieldset>
 					    	  	<div class="form-group">
-					    		    <input class="form-control" placeholder="Username" name="j_username" type="text">
+					    		    <input class="form-control" placeholder="Username" id="username" name="username" type="text">
 					    		</div>
 					    		<div class="form-group">
-					    			<input class="form-control" placeholder="Password" name="j_password" type="password" value="">
+					    			<input class="form-control" placeholder="Password" id="password" name="password" type="password" value="">
 					    		</div>
-					    		<div class="checkbox">
-					    	    	<label>
-					    	    		<input name="remember" type="checkbox" value="Remember Me"> Remember Me
-					    	    	</label>
-					    	    </div>
-					    		<input class="btn btn-lg btn-success btn-block" type="submit" value="Login">
-					    		<a href="register.jsp">Don't have an account? Register here</a>
+					    		<div class="form-group">
+					    		 
+					    			<input class="form-control" placeholder="First Name" name="firstName" type="text" value="">
+					    		</div>
+					    		<div class="form-group">
+					    			<input class="form-control" placeholder="Last Name" name="lastName" type="text" value="">
+					    		</div>
 					    		
-					    		<% 
-								if(request.getParameter("flag").equals("true")){
-								 %>
-								 	<div class="span12">
-										<div class="alert alert-danger">
-										 	Username or Password is incorrect!
-										</div>
-								    </div>
-								<%} %> 
+					    		<div class="form-group">
+					    			<input class="form-control" placeholder="email" name="email" type="text" value="">
+					    		</div>
+					    		
+					    		<input class="btn btn-lg btn-success btn-block" type="submit" value="Register">
+					    		
 					    	</fieldset>
 					      	</form>
 					    </div>

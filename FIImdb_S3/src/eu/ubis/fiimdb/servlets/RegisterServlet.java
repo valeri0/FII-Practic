@@ -6,20 +6,21 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import eu.ubis.fiimdb.controller.UserBean;
+import eu.ubis.fiimdb.model.User;
 
 /**
- * Servlet implementation class Logout
+ * Servlet implementation class RegisterServlet
  */
-@WebServlet("/UserServlet")
-public class UserServlet extends HttpServlet {
+@WebServlet("/Register")
+public class RegisterServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	/**
+       
+    /**
      * @see HttpServlet#HttpServlet()
      */
-    public UserServlet() {
+    public RegisterServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,37 +29,29 @@ public class UserServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		UserBean bean = new UserBean();
+		// TODO Auto-generated method stub
 		
-		bean.setUserDetails(request.getParameter("username"));
-		
-		
-		
-		request.setAttribute("userBean", bean);
-		
-		request.getRequestDispatcher("/user-details.jsp").forward(request, response);
-
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String action = request.getParameter("action");
+		// TODO Auto-generated method stub
+		User user = new User();
+		user.setUsername(request.getParameter("username"));
+		user.setPassword(request.getParameter("password"));
+		user.setFirstName(request.getParameter("firstName"));
+		user.setLastName(request.getParameter("lastName"));
+		user.setEmail(request.getParameter("email"));
 		
-		if(action.equals("logout")){
-			logout(request,response);
-		}
+		UserBean bean = new UserBean();
 		
-	}
-
-	private void logout(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		HttpSession session = request.getSession(false);
-        if(session != null){
-            session.invalidate();
-        }
-        //no encoding because we have invalidated the session
-        response.sendRedirect("movies");
+		bean.registerNewUser(user);
+		
+		response.sendRedirect("movies");
+		
+		
 	}
 
 }

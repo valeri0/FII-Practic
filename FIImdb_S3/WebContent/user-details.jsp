@@ -1,16 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<%@ page import="eu.ubis.fiimdb.model.Director"%>
-<%@ page import="eu.ubis.fiimdb.model.Movie" %>
+<%@ page import="eu.ubis.fiimdb.model.User"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-	<jsp:useBean id="movieBean" class="eu.ubis.fiimdb.controller.MovieBean" scope="request"></jsp:useBean>
-	<jsp:useBean id="directorBean" class="eu.ubis.fiimdb.controller.DirectorBean" scope="request"></jsp:useBean>
+	<jsp:useBean id="userBean" class="eu.ubis.fiimdb.controller.UserBean" scope="request"></jsp:useBean>
+	
 
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title><%=directorBean.getDirectorDetails().getLastName() %> <%=directorBean.getDirectorDetails().getFirstName() %></title>
+<title>User details</title>
 <link rel="stylesheet" href="css/bootstrap.min.css">
 <link rel="stylesheet" href="css/site.css">
 <link rel="icon" type="image/png" href="https://static.tildacdn.com/tild6562-3030-4464-a364-633961326435/2.png">
@@ -59,37 +58,39 @@
 	</div>
 
 	<div class="container">
+		<fieldset>
+			<legend>Your profile</legend>
+
+			<form method="post" action="UpdateUser">
+				
+				<div class="form-group">
+					<label for="username">Username:</label> 
+					<input type="text" name="username" class="form-control" id="username"  readonly value=<%=userBean.getUserDetails().getUsername() %>>
+				</div>
+				
+				<div class="form-group">
+					<label for="firstName">First name:</label> 
+					<input type="text" name="firstName" class="form-control" id="firstName" value=<%=userBean.getUserDetails().getFirstName() %>>
+				</div>
+				
+				<div class="form-group">
+					<label for="lastName">Last name:</label> 
+					<input type="text" name="lastName" class="form-control" id="lastName" value=<%=userBean.getUserDetails().getLastName()%>>
+				</div>
+				
+				
+				
+				<div class="form-group">
+					<label for="email">E-mail:</label> 
+					<input type="text" name="email" class="form-control" id="email" value=<%=userBean.getUserDetails().getEmail()%>>
+				</div>
 		
+
+				<button type="submit" class="btn btn-primary">Update</button>
+			</form>
+
+		</fieldset>
 		
-		<div class="movie-container">
-			<ul class="list-group">
-
-				<li class="list-group-item">
-					<div class="row">
-						
-
-						<div class="col-sm-10">
-							<h3><%=directorBean.getDirectorDetails().getLastName() %> <%=directorBean.getDirectorDetails().getFirstName() %></h3>
-							
-							<strong>Date of birth:</strong>
-							<%= directorBean.getDirectorDetails().getDateOfBirth() %> <br>
-							<strong>Bio:</strong>
-							 <%=directorBean.getDirectorDetails().getBio() %><br>
-							 <br>
-							<strong>Involved in the following movies:</strong>
-							<ul class="list-group">
-							<%for(Movie aMovie : directorBean.getMovies(directorBean.getDirectorDetails().getId())){ %>
-								<a href="DetailsServlet?id=<%=aMovie.getId() %>"> 
-								<li class="list-group-item"> <%=aMovie.getName() %> </li>
-								</a>
-							<%} %>
-							</ul>
-						</div>
-
-					</div>
-				</li>
-
-			</ul>
 		</div>
 		
 		
