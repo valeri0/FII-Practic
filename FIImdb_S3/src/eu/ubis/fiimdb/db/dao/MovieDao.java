@@ -5,8 +5,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,6 +16,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -60,14 +63,43 @@ public class MovieDao {
 		inverseJoinColumns=@JoinColumn(name="DIRECTOR_ID",referencedColumnName="ID"))
 	private List<DirectorDao> directors;
 	
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinTable(name="reviewed",
+		joinColumns=@JoinColumn(name="MOVIE_ID", referencedColumnName="ID"),
+		inverseJoinColumns=@JoinColumn(name="REVIEW_ID", referencedColumnName="ID",unique=true))
+	private List<ReviewDao> reviews;
+	
+	
+	
+	
 	
 
 	public MovieDao() {
 		this.genres = new ArrayList<>();
+
 	}
 	
 	
+	
+	
 		
+	public List<ReviewDao> getReviews() {
+		return reviews;
+	}
+	
+	public void addReview(ReviewDao review){
+		this.reviews.add(review);
+	}
+
+
+	public void setReviews(List<ReviewDao> reviews) {
+		this.reviews = reviews;
+	}
+
+
+
+
+
 	public List<DirectorDao> getDirectors() {
 		return directors;
 	}

@@ -5,6 +5,7 @@ public final class ServiceFactory {
 	private static GenreService genreService;
 	private static DirectorService directorService;
 	private static UserService userService;
+	private static ReviewService reviewService;
 
 	public static MovieService getMovieService() {
 		if (movieService == null) {
@@ -12,6 +13,13 @@ public final class ServiceFactory {
 		}
 
 		return movieService;
+	}
+	
+	public static ReviewService getReviewService(){
+		if(reviewService == null){
+			reviewService = new ReviewService();
+		}
+		return reviewService;
 	}
 	
 	public static DirectorService getDirectorService(){

@@ -2,6 +2,7 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ page import="eu.ubis.fiimdb.model.Movie"%>
 <%@ page import="eu.ubis.fiimdb.model.Director" %>
+<%@ page import="eu.ubis.fiimdb.model.Review" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -153,10 +154,53 @@
 							<%=movieBean.getMovieDetail().getCasting() %><br>
 
 						</div>
-
+						
+						
 					</div>
+					
 				</li>
-
+				
+				<li class="list-group-item">
+						<fieldset>
+						<legend>Write your opinion on the movie!</legend>
+						<form method="post" action="AddReview?username=<%=request.getRemoteUser()%>&movieId=<%=movieBean.getMovieDetail().getId() %>">
+						
+							
+							
+							<div class="form-group">
+							<label for="rating">Rating:</label> 
+							<input type="number" name="rating"  class="form-control" id="rating" value=0>
+							</div>
+							
+							<div class="form-group">
+							<label for="commentary">Comment:</label> 
+							<textarea name="commentary" id="commentary" class="form-control rows="10" cols="50"></textarea>
+							</div>
+				
+							
+				
+							<button type="submit" class="btn btn-primary">Add review</button>
+						
+						</form>
+						</fieldset>
+					</li>
+						
+					
+						
+						<%if(movieBean.getMovieDetail().getReviews()!=null){ %>
+						<legend>Read others opinion:</legend>
+						<%for(Review review : movieBean.getMovieDetail().getReviews()){ %>
+						<li class="list-group-item">
+							<h5><strong>Username</strong>: <%=review.getUsername() %></h5>
+							<h5><strong>Rating</strong>: <%=review.getRating() %></h5>
+							<h5><strong>Commentary:</strong></h5>
+							<p><%=review.getCommentary() %></p>
+						</li>
+						<% } %>  
+						
+						<% } %>
+			
+					
 			</ul>
 		</div>
 		

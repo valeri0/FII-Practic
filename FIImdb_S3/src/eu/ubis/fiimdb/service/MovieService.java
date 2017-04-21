@@ -11,13 +11,16 @@ import javax.persistence.Persistence;
 import eu.ubis.fiimdb.db.dao.DirectorDao;
 import eu.ubis.fiimdb.db.dao.GenreDao;
 import eu.ubis.fiimdb.db.dao.MovieDao;
+import eu.ubis.fiimdb.db.dao.ReviewDao;
 import eu.ubis.fiimdb.model.Director;
 import eu.ubis.fiimdb.model.Movie;
+import eu.ubis.fiimdb.model.Review;
 
 public class MovieService {
 	// declaram un entityManager, care va face tranzactiile (insert) catre baza de date
 	private EntityManager entityManager;
 	private DirectorService directorService;
+	private ReviewService reviewService;
 
 	
 	// in constructor ne instantiem un entityManager
@@ -25,6 +28,7 @@ public class MovieService {
 		EntityManagerFactory emFactory = Persistence.createEntityManagerFactory("fiimdb");
 		entityManager = emFactory.createEntityManager();
 		directorService=ServiceFactory.getDirectorService();
+		reviewService=ServiceFactory.getReviewService();
 	}
 
 	
@@ -81,7 +85,17 @@ public class MovieService {
 			directors.add(directorService.mapDirectorDaoToModel(directorEntity));
 		}
 		
+
 		newMovie.setDirectors(directors);
+		
+		List<Review> reviews = new ArrayList<>();
+		
+		for(ReviewDao reviewEntity : movie.getReviews() ){
+			reviews.add(reviewService.mapReviewDaoToModel(reviewEntity));
+		}
+		
+		newMovie.setReviews(reviews);
+		
 		
 		
 		newMovie.setGenre(genre);
@@ -89,6 +103,8 @@ public class MovieService {
 		return newMovie;
 		
 	}
+	
+	
 	
 	
 	public List<Movie> getMoviesForDirector(int directorId){

@@ -10,6 +10,7 @@
    		<class>eu.ubis.fiimdb.db.dao.GenreDao</class>
    		<class>eu.ubis.fiimdb.db.dao.DirectorDao</class>
    		<class>eu.ubis.fiimdb.db.dao.UserDao</class>
+   		<class>eu.ubis.fiimdb.db.dao.ReviewDao</class>
 		<exclude-unlisted-classes>false</exclude-unlisted-classes>
 	   	<properties>
 	     	<property name="javax.persistence.jdbc.driver" value="oracle.jdbc.OracleDriver"/>
